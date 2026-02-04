@@ -1,0 +1,13 @@
+{
+    "name": "consumer-decision-journey-survey",
+    "version": "1.0.0",
+    "description": "Survey web app for consumer decision journey for tech products",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.19.2"
+    }
+  }
+  
