@@ -1,16 +1,14 @@
-require("dotenv").config();
+const path = require("path");
+const express = require("express");
 const { MongoClient } = require("mongodb");
 
-
-const path = require("path");
-const fs = require("fs");
-const fsp = require("fs/promises");
-const express = require("express");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DATA_DIR = path.join(__dirname, "data");
-const CSV_PATH = path.join(DATA_DIR, "responses.csv");
+const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_DB = process.env.MONGODB_DB || "survey";
+const MONGODB_COLLECTION = process.env.MONGODB_COLLECTION || "responses";
 
 const FIELD_LABELS = {
   created_at: "Submission time",
@@ -81,17 +79,53 @@ const normalizePayload = (payload) => {
   return normalized;
 };
 
-const ensureCsvFile = async () => {
-  await fsp.mkdir(DATA_DIR, { recursive: true });
-  if (!fs.existsSync(CSV_PATH)) {
-    const header = FIELD_ORDER.map((key) => escapeCsvValue(FIELD_LABELS[key])).join(",") + "\n";
-    await fsp.writeFile(CSV_PATH, header, "utf8");
+const mapPayloadToLabels = (payload) =>
+  FIELD_ORDER.reduce((acc, key) => {
+    acc[FIELD_LABELS[key]] = payload[key] ?? "";
+    return acc;
+  }, {});
+
+let mongoClient;
+let mongoCollection;
+
+const getMongoCollection = async () => {
+  if (mongoCollection) {
+    return mongoCollection;
   }
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not set.");
+  }
+  mongoClient = new MongoClient(MONGODB_URI);
+  await mongoClient.connect();
+  mongoCollection = mongoClient.db(MONGODB_DB).collection(MONGODB_COLLECTION);
+  return mongoCollection;
 };
 
-const appendCsvRow = async (payload) => {
-  const row = FIELD_ORDER.map((key) => escapeCsvValue(payload[key])).join(",") + "\n";
-  await fsp.appendFile(CSV_PATH, row, "utf8");
+const fetchMongoResponses = async () => {
+  const collection = await getMongoCollection();
+  const docs = await collection
+    .find({})
+    .sort({ [FIELD_LABELS.created_at]: 1 })
+    .toArray();
+  return docs.map(({ _id, ...rest }) => {
+    const normalized = normalizePayload(rest);
+    return FIELD_ORDER.reduce((acc, key) => {
+      const label = FIELD_LABELS[key];
+      const value = Object.prototype.hasOwnProperty.call(normalized, label)
+        ? normalized[label]
+        : normalized[key];
+      acc[key] = value ?? "";
+      return acc;
+    }, {});
+  });
+};
+
+const buildCsvFromResponses = (responses) => {
+  const header = FIELD_ORDER.map((key) => escapeCsvValue(FIELD_LABELS[key])).join(",") + "\n";
+  const rows = responses.map((payload) =>
+    FIELD_ORDER.map((key) => escapeCsvValue(payload[key])).join(",")
+  );
+  return header + rows.join("\n") + (rows.length ? "\n" : "");
 };
 
 app.use(express.json({ limit: "1mb" }));
@@ -106,10 +140,11 @@ app.post("/api/responses", async (req, res) => {
 
   const createdAt = new Date().toISOString();
   const normalized = normalizePayload({ ...payload, created_at: createdAt });
+  const labeledPayload = mapPayloadToLabels(normalized);
 
   try {
-    await ensureCsvFile();
-    await appendCsvRow(normalized);
+    const collection = await getMongoCollection();
+    await collection.insertOne(labeledPayload);
     return res.status(201).json({ message: "Response saved." });
   } catch (error) {
     return res.status(500).json({ message: "Failed to save response." });
@@ -118,8 +153,9 @@ app.post("/api/responses", async (req, res) => {
 
 app.get("/api/responses.csv", async (req, res) => {
   try {
-    await ensureCsvFile();
-    return res.download(CSV_PATH, "responses.csv");
+    const responses = await fetchMongoResponses();
+    res.type("text/csv");
+    return res.send(buildCsvFromResponses(responses));
   } catch (error) {
     return res.status(500).json({ message: "Failed to load responses." });
   }
@@ -127,16 +163,34 @@ app.get("/api/responses.csv", async (req, res) => {
 
 app.get("/api/responses", async (req, res) => {
   try {
-    await ensureCsvFile();
-    const csv = await fsp.readFile(CSV_PATH, "utf8");
+    const responses = await fetchMongoResponses();
     res.type("text/csv");
-    return res.send(csv);
+    return res.send(buildCsvFromResponses(responses));
   } catch (error) {
     return res.status(500).json({ message: "Failed to load responses." });
   }
 });
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Survey app listening on http://localhost:${PORT}`);
+const startServer = async () => {
+  try {
+    await getMongoCollection();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error("MongoDB connection failed. Check MONGODB_URI.", error.message);
+    process.exit(1);
+  }
+
+  app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
+    console.log(`Survey app listening on http://localhost:${PORT}`);
+  });
+};
+
+startServer();
+
+process.on("SIGINT", async () => {
+  if (mongoClient) {
+    await mongoClient.close();
+  }
+  process.exit(0);
 });
