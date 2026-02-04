@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consumer Decision Journey for Tech Products</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="survey">
+      <header class="survey__header">
+        <h1>Consumer Decision Journey for Tech Products</h1>
+      </header>
+
+      <form id="survey-form" class="survey__form">
+        <section class="survey__section">
+          <h2>1. Purchase Triggers</h2>
+          <p class="survey__prompt">
+            Think about the last tech product you purchased. What triggered your decision to buy it?
+          </p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="purchaseTriggers" value="Old device stopped working or felt outdated" /> Old device stopped working or felt outdated</label>
+            <label><input type="checkbox" name="purchaseTriggers" value="New features or innovation" /> New features or innovation</label>
+            <label><input type="checkbox" name="purchaseTriggers" value="Work/study requirements" /> Work/study requirements</label>
+            <label><input type="checkbox" name="purchaseTriggers" value="Recommendation from someone" /> Recommendation from someone</label>
+            <label><input type="checkbox" name="purchaseTriggers" value="Seeing an ad, review, or launch event" /> Seeing an ad, review, or launch event</label>
+            <label><input id="purchaseTriggersOtherCheck" type="checkbox" name="purchaseTriggers" value="Other" /> Other (please specify)</label>
+            <input type="text" name="purchaseTriggersOther" class="survey__text" placeholder="Please specify" data-other-checkbox="purchaseTriggersOtherCheck" />
+          </div>
+
+          <p class="survey__prompt">Would you describe this purchase as:</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="purchaseDescription" value="Planned in advance" /> Planned in advance</label>
+            <label><input type="checkbox" name="purchaseDescription" value="Somewhat planned" /> Somewhat planned</label>
+            <label><input type="checkbox" name="purchaseDescription" value="Impulsive" /> Impulsive</label>
+          </div>
+        </section>
+
+        <section class="survey__section">
+          <h2>2. Initial Consideration</h2>
+          <p class="survey__prompt">Which tech brands or products did you initially consider when deciding what to buy?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="initialBrands" value="Apple" /> Apple</label>
+            <label><input type="checkbox" name="initialBrands" value="Samsung" /> Samsung</label>
+            <label><input type="checkbox" name="initialBrands" value="Dell" /> Dell</label>
+            <label><input type="checkbox" name="initialBrands" value="Lenovo" /> Lenovo</label>
+            <label><input type="checkbox" name="initialBrands" value="Sony" /> Sony</label>
+            <label><input id="initialBrandsOtherCheck" type="checkbox" name="initialBrands" value="Other" /> Other (please specify)</label>
+            <input type="text" name="initialBrandsOther" class="survey__text" placeholder="Please specify" data-other-checkbox="initialBrandsOtherCheck" />
+          </div>
+
+          <p class="survey__prompt">Why did these brands come to mind first?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="initialReasons" value="Previous experience with the brand" /> Previous experience with the brand</label>
+            <label><input type="checkbox" name="initialReasons" value="Brand reputation or perceived quality" /> Brand reputation or perceived quality</label>
+            <label><input type="checkbox" name="initialReasons" value="Compatibility with other devices" /> Compatibility with other devices</label>
+            <label><input type="checkbox" name="initialReasons" value="Price expectations" /> Price expectations</label>
+            <label><input type="checkbox" name="initialReasons" value="Visibility through advertising or social media" /> Visibility through advertising or social media</label>
+            <label><input id="initialReasonsOtherCheck" type="checkbox" name="initialReasons" value="Other" /> Other (please specify)</label>
+            <input type="text" name="initialReasonsOther" class="survey__text" placeholder="Please specify" data-other-checkbox="initialReasonsOtherCheck" />
+          </div>
+
+          <p class="survey__prompt">Were there any tech brands you did not consider? Why do you think that was?</p>
+          <input type="text" name="brandsNotConsidered" class="survey__text" />
+        </section>
+
+        <section class="survey__section">
+          <h2>3. Evaluation Process &amp; Information Sources</h2>
+          <p class="survey__prompt">How did you evaluate or compare the different tech products before making a decision?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="evaluationMethods" value="Technical specifications" /> Technical specifications</label>
+            <label><input type="checkbox" name="evaluationMethods" value="Performance and reliability" /> Performance and reliability</label>
+            <label><input type="checkbox" name="evaluationMethods" value="Price vs value" /> Price vs value</label>
+            <label><input type="checkbox" name="evaluationMethods" value="Design and usability" /> Design and usability</label>
+            <label><input type="checkbox" name="evaluationMethods" value="Ecosystem compatibility" /> Ecosystem compatibility</label>
+          </div>
+
+          <p class="survey__prompt">What information sources did you consult during your decision process?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="infoSources" value="Friends or family" /> Friends or family</label>
+            <label><input type="checkbox" name="infoSources" value="Online reviews" /> Online reviews (e.g. Google, Reddit, Trustpilot)</label>
+            <label><input type="checkbox" name="infoSources" value="YouTube reviews or tech influencers" /> YouTube reviews or tech influencers</label>
+            <label><input type="checkbox" name="infoSources" value="Social media" /> Social media (Instagram, TikTok, X)</label>
+            <label><input type="checkbox" name="infoSources" value="Brand websites" /> Brand websites</label>
+            <label><input type="checkbox" name="infoSources" value="Comparison sites" /> Comparison sites</label>
+            <label><input type="checkbox" name="infoSources" value="In-store staff" /> In-store staff</label>
+            <label><input id="infoSourcesOtherCheck" type="checkbox" name="infoSources" value="Other" /> Other (please specify)</label>
+            <input type="text" name="infoSourcesOther" class="survey__text" placeholder="Please specify" data-other-checkbox="infoSourcesOtherCheck" />
+          </div>
+
+          <p class="survey__prompt">Which of these sources had the strongest influence on your final decision, and why?</p>
+          <input type="text" name="strongestInfluence" class="survey__text" />
+        </section>
+
+        <section class="survey__section">
+          <h2>4. Expansion of the Consideration</h2>
+          <p class="survey__prompt">
+            During your research, did you start considering any tech brands or products that you hadn’t thought of initially?
+          </p>
+          <div class="survey__options survey__options--inline">
+            <label><input type="radio" name="expandedConsideration" value="Yes" /> Yes</label>
+            <label><input type="radio" name="expandedConsideration" value="No" /> No</label>
+          </div>
+
+          <p class="survey__prompt">
+            During your research, did you start considering any tech brands or products that you hadn’t thought of initially?
+          </p>
+          <div class="survey__options survey__options--inline">
+            <label><input type="radio" name="expandedConsiderationRepeat" value="Yes" /> Yes</label>
+            <label><input type="radio" name="expandedConsiderationRepeat" value="No" /> No</label>
+          </div>
+
+          <p class="survey__prompt">If yes, what caused you to add these options to your consideration set?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="expansionReasons" value="Reviews or comparison videos" /> Reviews or comparison videos</label>
+            <label><input type="checkbox" name="expansionReasons" value="Online recommendations" /> Online recommendations</label>
+            <label><input type="checkbox" name="expansionReasons" value="Promotions or pricing" /> Promotions or pricing</label>
+            <label><input type="checkbox" name="expansionReasons" value="Retail experience" /> Retail experience</label>
+            <label><input id="expansionReasonsOtherCheck" type="checkbox" name="expansionReasons" value="Other" /> Other (please specify)</label>
+            <input type="text" name="expansionReasonsOther" class="survey__text" placeholder="Please specify" data-other-checkbox="expansionReasonsOtherCheck" />
+          </div>
+
+          <p class="survey__prompt">If yes, what caused you to add these options to your consideration set?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="expansionReasonsRepeat" value="Reviews or comparison videos" /> Reviews or comparison videos</label>
+            <label><input type="checkbox" name="expansionReasonsRepeat" value="Online recommendations" /> Online recommendations</label>
+            <label><input type="checkbox" name="expansionReasonsRepeat" value="Promotions or pricing" /> Promotions or pricing</label>
+            <label><input type="checkbox" name="expansionReasonsRepeat" value="Retail experience" /> Retail experience</label>
+            <label><input id="expansionReasonsRepeatOtherCheck" type="checkbox" name="expansionReasonsRepeat" value="Other" /> Other (please specify)</label>
+            <input type="text" name="expansionReasonsRepeatOther" class="survey__text" placeholder="Please specify" data-other-checkbox="expansionReasonsRepeatOtherCheck" />
+          </div>
+        </section>
+
+        <section class="survey__section">
+          <h2>5. Purchase Decision &amp; Channel Choice</h2>
+          <p class="survey__prompt">What ultimately made you choose the specific tech product you bought?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="purchaseDrivers" value="One decisive factor or a combination" /> One decisive factor or a combination</label>
+            <label><input type="checkbox" name="purchaseDrivers" value="Rational vs emotional" /> Rational (specs, price) vs emotional (brand trust, design)</label>
+            <label><input id="purchaseDriversOtherCheck" type="checkbox" name="purchaseDrivers" value="Other" /> Other (please specify)</label>
+            <input type="text" name="purchaseDriversOther" class="survey__text" placeholder="Please specify" data-other-checkbox="purchaseDriversOtherCheck" />
+          </div>
+
+          <p class="survey__prompt">Where did you purchase the product?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="purchaseChannel" value="Online" /> Online (brand website or retailer)</label>
+            <label><input type="checkbox" name="purchaseChannel" value="In-store" /> In-store</label>
+            <label><input type="checkbox" name="purchaseChannel" value="Click-and-collect" /> Click-and-collect</label>
+          </div>
+
+          <p class="survey__prompt">Why did you choose that retailer or platform?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="channelReasons" value="Price" /> Price</label>
+            <label><input type="checkbox" name="channelReasons" value="Availability" /> Availability</label>
+            <label><input type="checkbox" name="channelReasons" value="Delivery speed" /> Delivery speed</label>
+            <label><input type="checkbox" name="channelReasons" value="Warranty" /> Warranty</label>
+            <label><input type="checkbox" name="channelReasons" value="Returns" /> Returns</label>
+            <label><input type="checkbox" name="channelReasons" value="Trust" /> Trust</label>
+            <label><input id="channelReasonsOtherCheck" type="checkbox" name="channelReasons" value="Other" /> Other (please specify)</label>
+            <input type="text" name="channelReasonsOther" class="survey__text" placeholder="Please specify" data-other-checkbox="channelReasonsOtherCheck" />
+          </div>
+        </section>
+
+        <section class="survey__section">
+          <h2>6. Post-Purchase Behaviour</h2>
+          <p class="survey__prompt">After purchasing the tech product, did you do any of the following?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="postPurchaseActions" value="Leave an online review" /> Leave an online review</label>
+            <label><input type="checkbox" name="postPurchaseActions" value="Post about it on social media" /> Post about it on social media</label>
+            <label><input type="checkbox" name="postPurchaseActions" value="Recommend it to friends or family" /> Recommend it to friends or family</label>
+            <label><input type="checkbox" name="postPurchaseActions" value="Follow or engage with the brand online" /> Follow or engage with the brand online</label>
+            <label><input type="checkbox" name="postPurchaseActions" value="None of the above" /> None of the above</label>
+          </div>
+
+          <p class="survey__prompt">What motivated you to engage (or not engage) in these behaviours?</p>
+          <input type="text" name="postPurchaseMotivation" class="survey__text" />
+        </section>
+
+        <section class="survey__section">
+          <h2>7. Brand Advocacy</h2>
+          <p class="survey__prompt">How likely are you to actively recommend this tech brand to others?</p>
+          <p class="survey__note">1 - Very unlikely<br />5 - Very likely</p>
+          <input type="number" name="advocacyLikelihood" min="1" max="5" class="survey__number" />
+
+          <p class="survey__prompt">What would make you more likely to recommend this brand in the future?</p>
+          <input type="text" name="advocacyMotivation" class="survey__text" />
+        </section>
+
+        <section class="survey__section">
+          <h2>8. Repurchase &amp; Loyalty vs Switching</h2>
+          <p class="survey__prompt">
+            When buying a similar tech product in the future, how likely are you to choose the same brand?
+          </p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="repurchaseLikelihood" value="Very likely" /> Very likely</label>
+            <label><input type="checkbox" name="repurchaseLikelihood" value="Somewhat likely" /> Somewhat likely</label>
+            <label><input type="checkbox" name="repurchaseLikelihood" value="Not sure" /> Not sure</label>
+            <label><input type="checkbox" name="repurchaseLikelihood" value="Likely to switch" /> Likely to switch</label>
+          </div>
+
+          <p class="survey__prompt">What factors would most likely cause you to switch to a different tech brand next time?</p>
+          <div class="survey__options">
+            <label><input type="checkbox" name="switchFactors" value="Better specs" /> Better specs</label>
+            <label><input type="checkbox" name="switchFactors" value="Lower price" /> Lower price</label>
+            <label><input type="checkbox" name="switchFactors" value="Innovation" /> Innovation</label>
+            <label><input type="checkbox" name="switchFactors" value="Negative experience" /> Negative experience</label>
+            <label><input type="checkbox" name="switchFactors" value="Peer recommendations" /> Peer recommendations</label>
+          </div>
+        </section>
+
+        <button type="submit" class="survey__submit">Submit Survey</button>
+        <p id="form-status" class="survey__status" role="status"></p>
+      </form>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
