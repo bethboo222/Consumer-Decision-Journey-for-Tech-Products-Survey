@@ -1,3 +1,7 @@
+require("dotenv").config();
+const { MongoClient } = require("mongodb");
+
+
 const path = require("path");
 const fs = require("fs");
 const fsp = require("fs/promises");
