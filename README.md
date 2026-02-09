@@ -6,9 +6,12 @@ Install dependencies:
 
 ```bash
 npm install
+```
 
-
-Live Demo
+Start the application:
+```bash
+npm start
+```
 
 The application is deployed and available at:
 
