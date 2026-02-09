@@ -1,9 +1,15 @@
-**setup
+# Consumer Decision Journey for Tech
 
+## Setup
+
+Install dependencies:
+
+```bash
 npm install
 
-npm start
 
+Live Demo
 
-running on:
+The application is deployed and available at:
+
 https://consumer-decision-journey-for-tech.onrender.com/
